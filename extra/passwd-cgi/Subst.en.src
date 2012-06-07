@@ -1,0 +1,52 @@
+# Global messages, URLs and ...
+BGCOLOR		= #ffffff
+CONTACT_URL	= mailto:postmaster@your.domain.name
+CONTACT_FACE	= postmaster@your.domain.name
+BACK_URL	= /index.html
+BACK_FACE	= Top Page
+
+# Form messages
+FORM_TITLE	= Change Password
+FORM_MESSAGE	= This page is for changing your password...
+FORM_AUTH	= Authentication
+FORM_USER	= Username
+FORM_PASS	= Password
+FORM_NEW	= Change
+FORM_NEWPASS	= New Password
+FORM_NEWPASS2	= New Password (confirm)
+FORM_SUBMIT	= Change!
+FORM_RESET	= Clear!
+FORM_NOTE	= New password is required following conditions:
+FORM_NOTE1	= %PASSWD_LEN_MIN% or greater characters. (only first %PASSWD_LEN_MAX% characters are significant)
+FORM_NOTE2	= Contain at least %PASSWD_ELEM_ALPHA% alphabetic characters and and at least %PASSWD_ELEM_OTHER% numeric or special character.
+FORM_NOTE3	= Differ from user's login name and any reverse or circular shift of that login name.
+FORM_NOTE4	= Differ from old password by at least %PASSWD_LEN_DIFF% characters.
+FORM_CONTACT	= If you have any questions, contact: <A HREF="%HTML_CONTACT_URL%">%HTML_CONTACT_FACE%</A>
+
+# Done messages and URL
+DONE_URL	= done.html
+DONE_TITLE	= Change Password: done
+DONE_MESSAGE	= Your password has been changed.
+
+# Retry messages
+RETRY_TITLE		= Changing failed !! Reason:
+RETRY_WANT_ALL		= Please fill all items.
+RETRY_PASS_INVALID	= New password has invalid character.
+RETRY_PASS_MISMATCH 	= New password didn't match with confirmation.
+RETRY_PASS_WEAKLY	= New password couldn't satisfy some requirements.
+RETRY_UNAUTH_USER	= Username or password is incorrect.
+RETRY_UNAUTH_SHELL	= User's shell is invalid
+RETRY_UNAUTH_HOME	= User's home directory does not exist
+
+# Error messages
+ERROR_TITLE	= Error occured !!
+ERROR_SITUATION	= Situation
+ERROR_USER	= Username
+ERROR_AGENT	= Agent
+ERROR_CLIENT	= Client host
+ERROR_CONTACT	= Please contact with <A HREF="%HTML_CONTACT_URL%">%HTML_CONTACT_FACE%</A>
+ERROR_EXEC_NKF	= cannot execute: $nkf
+ERROR_OPEN_ITEM	= cannot open file: $item
+ERROR_OPEN_CSV	= cannot open file: $csv
+ERROR_UNKNOWN	= changing password failed (unknown error)
+ERROR_CODE	= unknown value returned (unknown error)

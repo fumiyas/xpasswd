@@ -1,0 +1,24 @@
+/*
+    xpasswd.h
+    Copyright (c) 1997-2004 SATOH Fumiyasu, All rights reserved.
+    2004/06/07 - since 1997/05/23
+*/
+
+#ifndef _XPASSWD_H_INCLUDED
+#define _XPASSWD_H_INCLUDED
+
+#define PACKAGE_NAME		"@PACKAGE_NAME@"
+#define PACKAGE_VERSION		"@PACKAGE_VERSION@"
+#define PACKAGE_COPYRIGHT	"@PACKAGE_COPYRIGHT@"
+
+/* passwd program for changing password */
+#define PASSWD_TIMEOUT		@PASSWD_TIMEOUT@
+#define PASSWD_RETRY		@PASSWD_RETRY@
+#define PASSWD_LEN_MAX		@PASSWD_LEN_MAX@
+#define PASSWD_LEN_MIN		@PASSWD_LEN_MIN@
+#define PASSWD_LEN_DIFF		@PASSWD_LEN_DIFF@
+#define PASSWD_ELEM_ALPHA	@PASSWD_ELEM_ALPHA@
+#define PASSWD_ELEM_OTHER	@PASSWD_ELEM_OTHER@
+
+#endif /* _XPASSWD_H_INCLUDED */
+

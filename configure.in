@@ -1,0 +1,245 @@
+# Auto-configuration definition for xpasswd suite
+# Copyright (c) 1998-2004 SATOH Fumiyasu, All rights reserved.
+#
+# version 1.2.0 (2004/06/07 - since 1998/08/03)
+
+dnl Process this file with autoconf to produce a configure script.
+AC_INIT(xpasswd, 1.1.0beta8)
+AC_SUBST(PACKAGE_COPYRIGHT, ["Copyright (c) 1998-2004 SATOH Fumiyasu, All rights reserved."])
+
+AC_CANONICAL_SYSTEM
+case "$host_os" in
+    *solaris*)	SYSNAME=SYS_SOLARIS
+		PATH="$PATH:/usr/ccs/bin"
+		;;
+    *sunos*)	SYSNAME=SYS_SUNOS
+		;;
+    *linux*)	SYSNAME=SYS_LINUX
+		;;
+    *freebsd*)	SYSNAME=SYS_FREEBSD
+		;;
+    *bsdi*)	SYSNAME=SYS_BSDI
+		;;
+    *netbsd*)	SYSNAME=SYS_NETBSD
+		;;
+    *hpux*)	SYSNAME=SYS_HPUX
+		;;
+    *irix*)	SYSNAME=SYS_IRIX
+		;;
+    *)		SYSNAME=SYS_UNKNOWN
+		AC_MSG_WARN(unknown type of os)
+		;;
+esac
+AC_SUBST(SYSNAME)
+
+TARGET="src"
+TARGET_EXTRA=""
+AC_ARG_ENABLE(
+	passwd-cgi,
+	[  --enable-passwd-cgi     make passwd-cgi that using xpasswd],
+	TARGET_EXTRA="$TARGET_EXTRA passwd-cgi" \
+	USE_PERL="yes" \
+	USE_NKF="yes" \
+	ENABLE_PASSWD_CGI="yes",
+)
+AC_ARG_ENABLE(
+	poppassd,
+	[  --enable-poppassd       make poppassd that using xpasswd],
+	TARGET_EXTRA="$TARGET_EXTRA poppassd" \
+	USE_PERL="yes" \
+	ENABLE_POPPASSD="yes",
+)
+AC_ARG_ENABLE(
+	extra,
+	[  --enable-extra          make all extra tools that using xpasswd],
+	TARGET_EXTRA="passwd-cgi poppassd" \
+	USE_PERL="yes" \
+	USE_NKF="yes" \
+	ENABLE_EXTRA="yes",
+)
+if test -n "$TARGET_EXTRA"; then
+    TARGET="$TARGET extra"
+fi
+AC_SUBST(TARGET_EXTRA)
+AC_SUBST(TARGET)
+
+dnl Language
+AC_MSG_CHECKING(language for passwd-cgi)
+LANGUAGE=ja
+AC_ARG_WITH(
+	lang,
+	[  --with-lang=language    specify language for passwd-cgi [ja]],
+	LANGUAGE=$with_lang,
+)
+AC_SUBST(LANGUAGE)
+AC_MSG_RESULT($LANGUAGE)
+case "$LANGUAGE" in
+    ja)
+	;;
+    en)
+	USE_NKF="no"
+	;;
+    *)
+	AC_MSG_ERROR(unknown language name. specify 'ja' or 'en'.)
+	;;
+esac
+
+dnl Checks program: passwd
+AC_ARG_WITH(
+	passwd,
+	[  --with-passwd=PATH      specify passwd command [/usr/bin/passwd]],
+	echo "using $with_passwd for passwd"
+	PASSWD_EXE=$with_passwd,
+	[AC_PATH_PROG(PASSWD_EXE,passwd, not found)]
+)
+if test x"$PASSWD_EXE" = x"not found"; then
+    AC_MSG_ERROR(passwd command required.)
+fi
+AC_DEFINE_UNQUOTED(PASSWD_EXE, "$PASSWD_EXE")
+
+AC_ARG_WITH(
+	passwd_timeout,
+	[  --with-passwd-timeout=N timeout for passwd command (msec) [2000]],
+	PASSWD_TIMEOUT=$with_passwd_timeout,
+	[PASSWD_TIMEOUT=2000]
+)
+echo "timeout for passwd command... $PASSWD_TIMEOUT sec"
+AC_SUBST(PASSWD_TIMEOUT)
+
+PASSWD_RETRY=3
+AC_SUBST(PASSWD_RETRY)
+
+AC_ARG_WITH(
+	passwd_maxlen,
+	[  --with-passwd-maxlen=N  maximum length for new password [8]],
+	PASSWD_LEN_MAX=$with_passwd_maxlen,
+	[PASSWD_LEN_MAX=8]
+)
+echo "maximum length for new password... $PASSWD_LEN_MAX character(s)"
+AC_SUBST(PASSWD_LEN_MAX)
+
+AC_ARG_WITH(
+	passwd_minlen,
+	[  --with-passwd-minlen=N  minimum length for new password [6]],
+	PASSWD_LEN_MIN=$with_passwd_minlen,
+	[PASSWD_LEN_MIN=6]
+)
+echo "minimum length for new password... $PASSWD_LEN_MIN character(s)"
+AC_SUBST(PASSWD_LEN_MIN)
+
+AC_ARG_WITH(
+	passwd_diff,
+	[  --with-passwd-diff=N    required differece between old/new password [3]],
+	PASSWD_LEN_DIFF=$with_passwd_diff,
+	[PASSWD_LEN_DIFF=3]
+)
+echo "required differece between old/new password... $PASSWD_LEN_DIFF character(s)"
+AC_SUBST(PASSWD_LEN_DIFF)
+
+PASSWD_ELEM_ALPHA=2
+PASSWD_ELEM_OTHER=1
+AC_SUBST(PASSWD_ELEM_ALPHA)
+AC_SUBST(PASSWD_ELEM_OTHER)
+
+dnl Checks program: perl interpreter
+if test x"$USE_PERL" = x"yes"; then
+    AC_ARG_WITH(
+	    perl,
+	    [  --with-perl=PATH        specify perl for extra tools [search path]],
+	    echo "using $with_perl for perl"
+	    PERL_EXE=$with_perl,
+	    [AC_PATH_PROG(PERL_EXE,perl, not found)]
+    )
+    if test x"$PERL_EXE" = x"not found" || $PERL_EXE -e 'exit ($] >= 5.004)'; then
+	AC_MSG_ERROR(perl (5.004 or later) required by some extra tools.)
+    fi
+fi
+
+dnl Checks program: nkf - network kanji filter
+if test x"$USE_NKF" = x"yes"; then
+    AC_ARG_WITH(
+	    nkf,
+	    [  --with-nkf=PATH         specify nkf for extra tools [search path]],
+	    echo "using $with_nkf for nkf"
+	    NKF_EXE=$with_nkf,
+	    [AC_PATH_PROG(NKF_EXE,nkf, not found)]
+    )
+    if test x"$NKF_EXE" = x"not found"; then
+	AC_MSG_ERROR(nkf - network kanji filter required by some extra tools.)
+    fi
+fi
+
+dnl passwd-cgi installation directory
+if test -n "$ENABLE_EXTRA" || test -n "$ENABLE_PASSWD_CGI"; then
+    WEB_DIR_PASSWD_CGI=/usr/local/apache/share/htdocs/passwd
+    AC_ARG_WITH(
+	    cgi-dir,
+	    [  --with-cgi-dir=PATH     password cgi install dir [/usr/local/apache/share/htdocs/passwd]],
+	    WEB_DIR_PASSWD_CGI=$with_cgi_dir,
+    )
+    echo "using $WEB_DIR_PASSWD_CGI for password cgi installation"
+    AC_SUBST(WEB_DIR_PASSWD_CGI)
+fi
+
+dnl Checks for programs.
+AC_PROG_CC
+AC_PROG_RANLIB
+AC_PROG_INSTALL
+AC_CHECK_PROGS(AR, ar gar, not found)
+if test x"$AR" = x"not found"; then
+    AC_MSG_ERROR(ar or gar required.)
+fi
+AC_PATH_PROG(SH_EXE, sh, /bin/sh)
+AC_DEFINE_UNQUOTED(SH_EXE, "$SH_EXE")
+
+if test x"$GCC" = x"yes"; then
+    CFLAGS="$CFLAGS -Wall"
+fi
+
+dnl Checks implementation: library / header for passwd
+AC_CHECK_HEADERS(shadow.h)
+AC_MSG_CHECKING(for shadow passwords)
+if test -f /etc/shadow; then
+    if test x"$ac_cv_header_shadow_h" = x"yes"; then
+	AC_DEFINE(HAVE_ETC_SHADOW)
+	AC_MSG_RESULT(/etc/shadow)
+	AC_CHECK_LIB(shadow, getspnam)
+    else
+	AC_MSG_RESULT(no)
+    fi
+else
+    AC_MSG_RESULT(no)
+fi
+
+dnl Checks for library functions.
+AC_CHECK_FUNCS(select usleep strerror initgroups getusershell)
+AC_CHECK_FUNCS(cfmakeraw)
+AC_CHECK_HEADERS(crypt.h stdarg.h)
+AC_CHECK_LIB(crypt, crypt)
+
+dnl Checks implementation: how to get pseudo tty
+AC_MSG_CHECKING(for pseudo ttys)
+if test -c /dev/ptmx && test -c /dev/pts/0
+then
+    AC_DEFINE(HAVE_DEV_PTMX)
+    AC_MSG_RESULT(streams ptys)
+else
+    AC_MSG_RESULT(bsd-style ptys)
+fi
+
+AC_CONFIG_HEADERS(
+	include/config.h
+)
+
+AC_CONFIG_FILES(
+	Makefile
+	include/Makefile.global
+	src/Makefile
+	src/xpasswd.h
+	extra/Makefile
+	extra/passwd-cgi/Makefile
+	extra/poppassd/Makefile
+)
+
+AC_OUTPUT
+

@@ -1,0 +1,44 @@
+build and install
+-----------------
+
+(1)Do `./configure' on top of source directory.
+
+    % ./configure
+
+(2)If you want, edit Makefile.global, include/config.h and so on ...
+
+    % vi Makefile.global include/config.h
+
+(3)To build binaies and extra tools, type `make'.
+
+    % make
+
+(4)Installation.
+
+    % su
+    Password:
+    # make install
+
+configure options
+-----------------
+
+Please execute `./configure --help` for more options.
+
+    --enable-passwd-cgi     make passwd-cgi that using xpasswd
+    --enable-poppassd       make poppassd that using xpasswd
+    --enable-extra          make all extra tools that using xpasswd
+    --with-lang=LANGUAGE    specify language for passwd-cgi [ja] (ja, en)
+    --with-passwd=PATH      specify passwd program [/usr/bin/passwd]
+    --with-perl=PATH        specify perl for extra tools [search path]
+    --with-nkf=PATH         specify nkf for extra tools [search path]
+    --with-cgi-dir=PATH     password cgi install dir
+			    [/usr/local/apache/share/htdocs/passwd]
+
+Passwd-cgi uses following tools to treat Japanese code:
+
+    nkf		a program that is `Network KANJI Filter'.
+    jcode.pl	a perl module for Japanese code conversion
+
+If you don't want to treat Japanese code by passwd-cgi,
+specify `--with-lang=en' option to configure script.
+

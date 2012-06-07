@@ -1,0 +1,33 @@
+# Makefile.global
+# ======================================================================
+
+SYSNAME		= @SYSNAME@
+
+CC		= @CC@
+
+DEFINES		= @DEFS@ -D${SYSNAME}=1
+INCLUDES	= 
+CFLAGS		= @CFLAGS@ ${DEFINES} ${INCLUDES}
+LDFLAGS		= @LIBS@
+
+# directories for installation
+# ----------------------------------------------------------------------
+
+prefix		= @prefix@
+exec_prefix	= @exec_prefix@
+
+DIR_BASE	= @prefix@
+DIR_BIN		= @bindir@
+DIR_SBIN	= @sbindir@
+
+# options for xpasswd
+# ----------------------------------------------------------------------
+
+PATH_PASSWD		= \"@PATH_PASSWD@\"
+PASSWD_TIMEOUT		= @PASSWD_TIMEOUT@
+
+PASSWD_LEN_MAX		= @PASSWD_LEN_MAX@
+PASSWD_LEN_MIN		= @PASSWD_LEN_MIN@
+PASSWD_LEN_DIFF		= @PASSWD_LEN_DIFF@
+PASSWD_ELEM_ALPHA	= @PASSWD_ELEM_ALPHA@
+PASSWD_ELEM_OTHER	= @PASSWD_ELEM_OTHER@

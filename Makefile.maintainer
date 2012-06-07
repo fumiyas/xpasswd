@@ -1,0 +1,28 @@
+## Makefile.null
+## ======================================================================
+
+NAME		= xpasswd
+VERSION		= 1.1.0beta7
+ARCHIVE		= ../../archive
+
+TAR		= tar
+TARCUST		= tarcust
+GZIP		= gzip
+
+## ----------------------------------------------------------------------
+
+default:
+	@echo "Please read file INSTALL and run \`./configure'."
+
+## ----------------------------------------------------------------------
+
+distclean:
+
+archive: distclean
+	${TAR} cf - * |\
+	${TARCUST} --prefix=${NAME}-${VERSION} |\
+	${GZIP} >${ARCHIVE}/${NAME}-${VERSION}.tar.gz
+	for r in README*; do \
+	    cp -p $$r ${ARCHIVE}/${NAME}.$$r; \
+	done
+

@@ -1,0 +1,24 @@
+#ifndef _CONFIG_H_INCLUDED
+#define _CONFIG_H_INCLUDED
+
+/* Define if you have SYSV-style /dev/ptmx and /dev/pts/. */
+#undef HAVE_DEV_PTMX
+/* Define if you have shadow password system. */
+#undef HAVE_ETC_SHADOW
+
+/* Define if you have the header file.  */
+#undef HAVE_STDARG_H
+#undef HAVE_SHADOW_H
+#undef HAVE_CRYPT_H
+
+/* Define if you have the function.  */
+#undef HAVE_USLEEP
+#undef HAVE_STRERROR
+#undef HAVE_INITGROUPS
+#undef HAVE_GETUSERSHELL
+
+/* Programs */
+#undef PASSWD_EXE
+#undef SH_EXE
+
+#endif /* _CONFIG_H_INCLUDED */

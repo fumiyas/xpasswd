@@ -1,0 +1,49 @@
+# Makefile
+# ======================================================================
+
+include ../../include/Makefile.global
+
+# ----------------------------------------------------------------------
+
+INSTALL		= @INSTALL@
+
+USERNAME	= `logname`
+HOSTNAME	= `hostname`
+CWD		= `pwd`
+
+TARGET		= poppassd
+
+# ----------------------------------------------------------------------
+
+PATH_XPASSWD	= ${DIR_BIN}/xpasswd
+PATH_PERL	= @PATH_PERL@
+
+# ----------------------------------------------------------------------
+
+default:
+	@(cd ..; ${MAKE} all)
+
+all:	${TARGET}
+
+${TARGET}: Makefile ../../include/Makefile.global
+
+poppassd: poppassd.pl
+	rm -f $@
+	sed -e "s#%USERNAME%#${USERNAME}#g" \
+	    -e "s#%HOSTNAME%#${HOSTNAME}#g" \
+	    -e "s#%CWD%#${CWD}#g" \
+	    -e 's#%DIR_ETC%#${DIR_ETC}#g' \
+	    -e 's#%PATH_PERL%#${PATH_PERL}#g' \
+	    -e 's#%PATH_XPASSWD%#${PATH_XPASSWD}#g' \
+	    poppassd.pl > $@
+	chmod +x $@
+
+install: ${TARGET}
+	if [ ! -d ${DIR_SBIN} ]; then mkdir ${DIR_SBIN}; fi
+	${INSTALL} -o root -m 755 poppassd ${DIR_SBIN}/poppassd
+	@echo "**************** INSTALLATION NOTE FOR POPPASSD ****************"
+	@echo "Please read doc/poppassd.txt for more information ..."
+	@echo "****************************************************************"
+
+clean:
+	rm -f ${TARGET}

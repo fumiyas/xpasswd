@@ -1,0 +1,23 @@
+README			最初に読んでください
+HISTORY			xpasswd パッケージの歴史
+INSTALL			インストール方法
+MANIFEST		このファイル
+ENGLISH/		英語版の文書ディレクトリ
+
+configure		GNU autoconf による自動構成スクリプト
+Makefile.in		Makefile の素
+Makefile.global.in	Makefile.global の素
+
+doc/			文書群
+doc/upgrade.txt		バージョンアップによる仕様変更の解説
+doc/xpasswd.txt		xpasswd のインタフェース仕様解説
+doc/passwd-cgi.txt	passwd-cgi の構築と利用方法
+doc/poppassd.txt	poppassd の構築と利用方法
+
+src/			xpasswd ソース
+lib/			xpasswd が利用するライブラリ
+lib/trace/		トレース・ライブラリ
+
+extra/			xpasswd の仲間たち
+extra/passwd-cgi/	パスワード変更 CGI
+extra/poppassd/		POP クライアント用パスワード変更サーバもどき

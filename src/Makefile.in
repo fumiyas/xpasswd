@@ -1,0 +1,31 @@
+# Makefile for xpasswd
+# ======================================================================
+
+include ../include/Makefile.global
+
+# ----------------------------------------------------------------------
+
+INSTALL		= @INSTALL@
+
+#CFLAGS		+= -I../lib/trace
+#LDFLAGS		+= -L../lib/trace -ltrace
+
+TARGET		= xpasswd
+SRCS		= xpasswd.c authuser.c chpasswd.c pty.c util.c
+OBJS		= ${SRCS:.c=.o}
+
+# ----------------------------------------------------------------------
+
+all: ${TARGET}
+
+${OBJS}: Makefile ../include/Makefile.global
+
+xpasswd: ${OBJS}
+	${CC} ${OBJS} ${LIBS} -o $@ ${LDFLAGS}
+
+install: ${TARGET}
+	if [ ! -d ${DIR_BIN} ]; then mkdir ${DIR_BIN}; fi
+	${INSTALL} -o root -m 4755 xpasswd ${DIR_BIN}/xpasswd
+
+clean::
+	rm -f ${OBJS} ${TARGET}

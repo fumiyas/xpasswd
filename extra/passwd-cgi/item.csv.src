@@ -1,0 +1,5 @@
+"user",		"",	"text,8,8"
+"pass",		"",	"password,%PASSWD_LEN_MAX%,%PASSWD_LEN_MAX%"
+"newpass",	"",	"password,%PASSWD_LEN_MAX%,%PASSWD_LEN_MAX%"
+"newpass2",	"",	"password,%PASSWD_LEN_MAX%,%PASSWD_LEN_MAX%"
+"message",	"",	"raw"

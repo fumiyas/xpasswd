@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+    <TITLE>%HTML_FORM_TITLE%</TITLE>
+</HEAD>
+<BODY BGCOLOR="%HTML_BGCOLOR%">
+<H1>%HTML_FORM_TITLE%</H1>
+%HTML_FORM_MESSAGE%
+<HR>
+@tag_var_message@
+<FORM action="index.cgi" method="POST">
+<TABLE>
+<TR><TD><TABLE BORDER="1" BGCOLOR="#ffffe0">
+<TR>
+    <TD BGCOLOR="#c0c0ff">
+        <DIV ALIGN="CENTER">
+            <B>%HTML_FORM_AUTH%</B>
+        </DIV></TD>
+    <TD COLSPAN="3"><TABLE>
+        <TR><TD>%HTML_FORM_USER%:</TD>
+            <TD>@tag_var_user@</TD></TR>
+        <TR><TD>%HTML_FORM_PASS%:</TD>
+            <TD>@tag_var_pass@</TD></TR>
+    </TABLE></TD>
+</TR>
+<TR>
+    <TD BGCOLOR="#c0c0ff">
+        <DIV ALIGN="CENTER">
+            <B>%HTML_FORM_NEW%</B>
+        </DIV></TD>
+    <TD COLSPAN="3"><TABLE>
+        <TR><TD>%HTML_FORM_NEWPASS%:</TD>
+            <TD>@tag_var_newpass@</TD></TR>
+        <TR><TD>%HTML_FORM_NEWPASS2%:</TD>
+            <TD>@tag_var_newpass2@</TD></TR>
+    </TABLE></TD>
+</TR>
+</TABLE></TD></TR>
+<TR><TD>
+    <DIV ALIGN="RIGHT">
+	<INPUT TYPE="submit" VALUE="%HTML_FORM_SUBMIT%">
+	<INPUT TYPE="reset" VALUE="%HTML_FORM_RESET%">
+    </DIV>
+</TD></TR>
+</TABLE>
+</FORM>
+%HTML_FORM_NOTE%
+<UL>
+    <LI>%HTML_FORM_NOTE1%
+    <LI>%HTML_FORM_NOTE2%
+    <LI>%HTML_FORM_NOTE3%
+    <LI>%HTML_FORM_NOTE4%
+</UL>
+<HR>
+[<A HREF="%HTML_BACK_URL%">%HTML_BACK_FACE%</A>]
+<HR>
+%HTML_FORM_CONTACT%
+</BODY>
+</HTML>

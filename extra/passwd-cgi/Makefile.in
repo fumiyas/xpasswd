@@ -1,0 +1,88 @@
+# Makefile
+# ======================================================================
+
+include ../../include/Makefile.global
+
+# ----------------------------------------------------------------------
+
+INSTALL		= @INSTALL@
+
+USERNAME	= `logname`
+HOSTNAME	= `hostname`
+CWD		= `pwd`
+
+TARGET_SUBST	= subst subst.def
+TARGET_CGI	= index.cgi form.tmpl done.html item.csv
+TARGET		= ${TARGET_SUBST} ${TARGET_CGI}
+
+INST_CGI	= ${TARGET_CGI} item.csv csv-parse.pl
+
+# ----------------------------------------------------------------------
+
+LANGUAGE	= @LANGUAGE@
+
+PATH_XPASSWD	= ${DIR_BIN}/xpasswd
+PATH_PERL	= @PATH_PERL@
+PATH_NKF	= @PATH_NKF@
+
+WEB_DIR_CGI	= @WEB_DIR_PASSWD_CGI@
+
+# ----------------------------------------------------------------------
+
+all: ${TARGET}
+
+${TARGET}: Makefile ../../include/Makefile.global
+
+subst: subst.pl
+	rm -f $@
+	sed -e 's#%PATH_PERL%#${PATH_PERL}#g' \
+	    subst.pl > $@
+	chmod +x $@
+
+subst.def: Subst.@LANGUAGE@.src
+	rm -f $@
+	sed -e 's#%PASSWD_LEN_MAX%#${PASSWD_LEN_MAX}#g' \
+	    -e 's#%PASSWD_LEN_MIN%#${PASSWD_LEN_MIN}#g' \
+	    -e 's#%PASSWD_LEN_DIFF%#${PASSWD_LEN_DIFF}#g' \
+	    -e 's#%PASSWD_ELEM_ALPHA%#${PASSWD_ELEM_ALPHA}#g' \
+	    -e 's#%PASSWD_ELEM_OTHER%#${PASSWD_ELEM_OTHER}#g' \
+	    Subst.@LANGUAGE@.src > $@
+
+index.cgi: index.pl subst.def
+	rm -f $@
+	sed -e 's#%PATH_PERL%#${PATH_PERL}#g' \
+	    -e 's#%PATH_XPASSWD%#${PATH_XPASSWD}#g' \
+	    -e 's#%PATH_NKF%#${PATH_NKF}#g' \
+	    -e 's#%LANGUAGE%#${LANGUAGE}#g' \
+	    index.pl > $@
+	./subst $@
+	chmod +x $@
+
+form.tmpl: form.tmpl.src subst.def
+	rm -f $@
+	cp form.tmpl.src $@
+	./subst $@
+
+done.html: done.html.src subst.def
+	rm -f $@
+	cp done.html.src $@
+	./subst $@
+
+item.csv: item.csv.src subst.def
+	rm -f $@
+	sed -e 's#%PASSWD_LEN_MAX%#${PASSWD_LEN_MAX}#g' \
+	    item.csv.src > $@
+	./subst $@
+
+install: ${TARGET}
+	if [ ! -d ${WEB_DIR_CGI} ]; then mkdir ${WEB_DIR_CGI}; fi
+	cp ${INST_CGI} ${WEB_DIR_CGI}
+	rm -f ${WEB_DIR_PASSWD}/index.cgi
+	@echo
+	@echo "*************** INSTALLATION NOTE FOR PASSWD-CGI ***************"
+	@echo "To use this CGI, you need configuration for web server."
+	@echo "See also web server documentations, please."
+	@echo "****************************************************************"
+
+clean:
+	rm -f ${TARGET}

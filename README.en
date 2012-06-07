@@ -1,0 +1,119 @@
+======================================================================
+xpasswd - non-interactive passwd command with friendly tools
+Copyright (c) 1997-2003 SATOH Fumiyasu, All rights reserved.
+
+version: 1.1.0 beta7 (2003-08-16, since 1997-05-23)
+license: GNU General Public License version 2
+======================================================================
+
+OVERVIEW
+======================================================================
+
+What's this?
+------------
+    The xpasswd command changes password associated with the
+    user's login name. This is non-interactive passwd command,
+    that takes login name/old password/new password via standard
+    input (stdin).
+
+    This command can be executed on following system:
+
+	system				passwd database
+	--------------------------	------------------------
+	Solaris 8			/etc/passwd
+	Solaris 2.5.1, 2.6		/etc/passwd, NIS, NIS+
+	RedHat Linux 5.2		/etc/passwd
+	Slackware 3.1 (Linux 2.0.31)	/etc/passwd
+	FreeBSD 2.2.5-RELEASE		/etc/passwd
+	BSD/OS 2.0.1, 2.1		/etc/passwd
+	NetBSD 1.3.2			/etc/passwd, NIS
+	HP-UX 10.20			/etc/passwd
+	IRIX 6.4			/etc/passwd, NIS
+	SunOS 4.1.x			/etc/passwd, NIS
+
+How to make?
+------------
+    See INSTALL file.
+
+Usage
+-----
+    xpasswd [-a|-c command] [-sdp] [-v[v[v]]]
+
+Options
+-------
+    -a              authentication only
+    -c command      execute command by authenticated user
+    -s              check if user's shell is valid (not implemented yet)
+    -d              check if user's home directory exists
+    -p              protocol mode (BROKEN)
+    -v              verbose output to stderr
+    -h              show this message
+
+Return values
+-------------
+    Zero means success, others mean failure.
+
+	Value	Means
+	-----	---------------------------------------
+	    x	[GENERAL CODE]
+	    0	success
+	    1	invalid option
+
+	  10x	[PROTOCOL ERROR]
+	  100	username is not there
+	  101	password is not there
+	  102	new password is not there
+
+	  11x	[AUTHENTICATION ERROR]
+	  110	user does not exist in passwd database
+	  111	password is incorrect
+	  112	user's shell is invalid
+	  113	user's home directory does not exist
+
+	  12x	[COMMAND EXECUTING ERROR]
+	  120	cannot change uid
+	  121	cannot change gid
+	  122	cannot initialize gid
+	  123	cannot execute command
+
+	  13x	[PASSWORD CHANGING ERROR]
+	  130	new password is not suitable string
+	  139	passwd changing failed (unknown error)
+
+
+EXAMPLE for EXEC
+======================================================================
+
+    On command line, you can change password by xpasswd.
+    ('$' is shell prompt.)
+
+	$ xpasswd
+	user hoge
+	pass foo012
+	newpass bar123
+	$ echo $?
+	0
+
+
+SUPPORT
+======================================================================
+
+    E-Mail:	fumiya at samba.gr.jp
+
+
+THANKS
+======================================================================
+
+    poppassd.c creators: They permitted me to re-use source!
+
+	Roy Smith <roy at mchip00.med.nyu.edu>
+	John Norstad <j-norstad at nwu.edu>
+
+    csv-parse.pl creator: The first program on perl by him.
+    I modified this and used in passwd-cgi.
+
+	NISHINO Yukuhiro <nishino at net-thrust.com>
+
+    commentator: Support for BSD/OS, some suggestions.
+
+	FUJII Hiroaki <h-fujii at atom.co.jp>

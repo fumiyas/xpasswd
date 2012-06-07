@@ -1,0 +1,81 @@
+======================================================================
+主題:	構築からインストールまでの手順
+更新日:	1999-12-13 (1998-08-26 以来)
+======================================================================
+
+展開〜準備〜構築〜インストール
+------------------------------
+
+(1) アーカイブを展開し、システムに合った Makefile などを作成する。
+
+    % gzip -dc xpasswd-x.x.x.tar.gz | tar xf -
+    % cd xpasswd-x.x.x
+    % ./configure
+
+(2) 必要であれば Makefile.global や config.h を編集する。
+
+    % vi include/Makefile.global include/config.h
+
+(3) make を実行して構築する。
+
+    % make
+
+(4) root になってインストールする。
+
+    % su
+    # make install
+
+configure のオプション
+----------------------
+
+これ以外のオプションは `./configure --help` をどうぞ。
+'[' と ']' 内はデフォルト値です。
+
+  * passwd コマンドに関する指定
+    --with-passwd=PATH      passwd コマンドの場所 [/usr/bin/passwd]
+    --with-passwd-timeout=N passwd プロセスからの応答を待つ時間(ミリ秒) [2000]
+
+  * 新パスワードの条件
+    --with-passwd-maxlen=N  有効な最大の文字数(あまり重要ではない) [8]
+    --with-passwd-minlen=N  最小の文字数 [6]
+    --with-passwd-diff=N    旧パスワードと異なる文字数 [3]
+
+  * 追加ソフトウェア関連
+    --enable-passwd-cgi     extra/passwd-cgi を構築する
+    --enable-poppassd       extra/poppassd を構築する
+    --enable-extra          extra 以下のすべてを構築する
+    --with-lang=LANGUAGE    passwd-cgi の扱う言語 [ja] (ja, en)
+    --with-perl=PATH        extra で利用する perl プログラムの場所 [パスから探す]
+    --with-nkf=PATH         extra で利用する nkf プログラムの場所 [パスから探す]
+    --with-cgi-dir=PATH     passwd-cgi をインストールする場所
+			    [/usr/local/apache/share/htdocs/passwd]
+
+passwd-cgi では、日本語コードの処理に nkf と jcode.pl を利用しています。
+ただし、configure オプション --with-lang=ja 以外では利用されません。
+Perl はバージョン 5 を要求します。未確認ですが、--with-lang=en 時に問題が
+あるようです。
+
+config.h のオプション
+---------------------
+
+configure で指定できないオプションがいくつかあり、それらは configure
+実行後に作成される include/config.h を編集して指定しなければなりません。
+
+    マクロ名		デフォルト値	意味
+    -----------------	------------	-----------------------------------
+    PASSWD_ELEM_ALPHA	 2		必要とするアルファベットの文字数
+    PASSWD_ELEM_OTHER	 1		必要とするアルファベット以外の文字数
+
+注意
+----
+
+configure オプションの --with-passwd-*=N の値と config.h 内の
+PASSWD_ELEM_* の値は、お使いのシステムの passwd コマンドが要求する
+新パスワードの要件を満たすように設定してください。そうしないと、
+パスワードの変更時に未知のエラー (139) が発生することがあります。
+
+redhat Linux など、新パスワードの脆弱性が厳しくチェックされるシステムでは、
+より複雑な新パスワードを指定しないと xpasswd で未知のエラー (139) が発生
+します。新パスワードの要件を得るための共通インタフェースは存在しないため、
+事前に xpasswd でチェックすることは困難です。(PAM 対応にしてしまうか…)
+

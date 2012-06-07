@@ -1,0 +1,52 @@
+# Global messages, URLs and ...
+BGCOLOR		= #ffffff
+CONTACT_URL	= mailto:postmaster@your.domain.name
+CONTACT_FACE	= postmaster@your.domain.name
+BACK_URL	= /index.html
+BACK_FACE	= トップページ
+
+# Form messages
+FORM_TITLE	= パスワードの変更
+FORM_MESSAGE	= こちらは Web サーバ上のパスワード変更を行うページです。
+FORM_AUTH	= 認証
+FORM_USER	= ユーザ名
+FORM_PASS	= パスワード
+FORM_NEW	= 変更
+FORM_NEWPASS	= 新パスワード
+FORM_NEWPASS2	= 新パスワード (確認)
+FORM_SUBMIT	= 変更実行
+FORM_RESET	= やり直し
+FORM_NOTE	= 新パスワードには以下の条件が必要です。
+FORM_NOTE1	= %PASSWD_LEN_MIN% 文字以上の長さ。(%PASSWD_LEN_MAX% 文字まで有効で、それ以降の文字は無視される)
+FORM_NOTE2	= %PASSWD_ELEM_ALPHA% 文字以上の英字、および %PASSWD_ELEM_OTHER% 文字以上の数字もしくは特殊文字を含む。
+FORM_NOTE3	= ユーザ名と異なるもの。反転したり、ずらしたものでも不可。
+FORM_NOTE4	= 現在のパスワードと %PASSWD_LEN_DIFF% 文字以上異なること。比較の際、英字の大文字・小文字は同じものとして扱われる。
+FORM_CONTACT	= お問い合わせは <A HREF="%HTML_CONTACT_URL%">%HTML_CONTACT_FACE%</A> まで。
+
+# Done messages and URL
+DONE_URL	= done.html
+DONE_TITLE	= パスワードの変更完了
+DONE_MESSAGE	= パスワードが変更されました。
+
+# Retry messages
+RETRY_TITLE		= [変更失敗]
+RETRY_WANT_ALL		= 入力欄をすべて埋めて下さい。
+RETRY_PASS_INVALID	= 新パスワードに無効な文字が含まれています。
+RETRY_PASS_MISMATCH 	= 新パスワードが確認内容と一致しませんでした。
+RETRY_PASS_WEAKLY	= 新パスワードが不適切な文字列です。
+RETRY_UNAUTH_USER	= ユーザ名またはパスワードが違います。
+RETRY_UNAUTH_SHELL	= ユーザのシェルが無効です。
+RETRY_UNAUTH_HOME	= ホームディレクトリがありません。
+
+# Error messages
+ERROR_TITLE	= 障害発生
+ERROR_SITUATION	= 状況
+ERROR_USER	= ユーザ名
+ERROR_AGENT	= エージェント
+ERROR_CLIENT	= クライアント
+ERROR_CONTACT	= 状況を <A HREF="%HTML_CONTACT_URL%">%HTML_CONTACT_FACE%</A> まで報告してください。
+ERROR_EXEC_NKF	= $nkf の実行に失敗しました
+ERROR_OPEN_ITEM	= $item がオープンできません
+ERROR_OPEN_CSV	= $csv がオープンできません
+ERROR_UNKNOWN	= パスワードの変更に失敗しました (原因不明)
+ERROR_CODE	= 未知のエラーコードを検出しました (原因不明)

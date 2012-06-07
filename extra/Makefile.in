@@ -1,0 +1,6 @@
+DIR_SUB	= @TARGET_EXTRA@
+
+all build install clean distclean:
+	@for subdir in ${DIR_SUB}; do \
+	    (cd $$subdir; ${MAKE} $@ SYSTEM=${SYSTEM}); \
+	done

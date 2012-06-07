@@ -1,0 +1,113 @@
+======================================================================
+修正・変更・拡張の歴史
+======================================================================
+
+version 1.1.x (2003-08-16, since 1998-08-03)
+======================================================================
+
+version 1.1.0 beta8 (2004-06-07)
+    * autoconf 2.59 対応
+	+ config.sub, config.guess を追加
+
+version 1.1.0 beta7 (2003-08-16)
+    * Solaris 8 対応。
+    * passwd コマンド起動前に環境変数 LC_ALL の値を C に設定。
+
+version 1.1.0 beta6 (1999-12-15, since 1999-09-07)
+    * Samba 2.0.6 を参考に tcsetattr(3) 問題に対応。
+      実はこの対応方法も不完全だが、確率はかなり低くなるでしょう。
+    * gcc なら CFLAGS に -Wall を追加。
+    * いくつかの関数を util.c に移動。
+    * いくつかの関数の名前を「小文字 + アンダーバー」に変更。
+    * GNU LSH 0.1.9 を参考にした改造。
+	- pty 取得/設定用の関数を util.[ch] に移した。
+	- slave pty は完全な(?) raw モードにするようにした。
+
+version 1.1.0 beta5 (1999-09-02, since 1999-06-04)
+    * FreeBSD 3.1-RELEASE 対応。[加藤徳英 <nori at kuwana.ne.jp>]
+    * IRIX 6.4、HP-UX 10.20 対応。[森光彦 <mori at gifu-pc.ac.jp>]
+    * trace: stderr が定数でないシステムに対応。
+    * Red Hat Linux 5.2 以降用に、passwd に write する前に
+      0.1 秒待つようにした。タイミングの問題らしいが、根本的な原因不明。
+    * passwd を待つ時間、新パスワードの条件(最大/最小の長さ、
+      旧パスワードとの違い)を configure オプションで指定できるようにした。
+
+version 1.1.0 beta4 (1999-05-07, since 1999-03-15)
+    * configure: @INSTALL@ のパスを修正。
+      [奥山健一 <okuyama at mth.biglobe.ne.jp>]
+    * configure: ar の検出に失敗したときに停止するようにした。
+    * ステータスコードとメッセージを表示する -p オプションを追加。
+      実行結果を示すメッセージ「ok」と「ng」と -q オプションは廃止した。
+      (-p オプションは主に mod_auth_external 3.0.0 beta3 以降用)
+    * コマンドの終了コードを大幅に変更した。
+    * ユーザのシェルをチェックする -s オプションを追加。
+      ただし、いまのところ getusershell() がないシステムでは機能しない。
+    * NIS+ 環境において、パスワードとセキュア RPC パスワードが異なる場合、
+      デフォルトの RPC パスワード `nisplus` を入力させる -N オプション追加。
+      Solaris 2.6 でしか機能しない。
+      (作者の勤務先の環境の都合に合わせるために拡張)
+    * RedHat Linux 5.2 対応。
+
+version 1.1.0 beta3 (1999-02-25, since 1999-01-14)
+    * poppassd: パスワード入力を求める応答のコードを 200 → 300 にした。
+    * passwd-cgi: 埋め込まれていたメッセージを任意に変更可能とした。
+    * passwd-cgi: 英語版メッセージを添付。
+
+version 1.1.0 beta2 (1998-11-26, since 1998-09-18)
+    * 未公開バージョン。
+    * BSDI/FreeBSD にてコンパイル・エラーが発生するヘマを修正。
+    * configure でシステムを判別するようにした。
+    * 新パスワードに含むべき英文字と非英文字の最小数を指定できるようにした。
+      ただし、configure 後に Makefile.global を手動で書き換えねばならない。
+    * passwd-cgi/index.pl: jcode'euc() に入力コードを指定していたのを削除。
+    * passwd-cgi: configure 時にメッセージの言語を切り換えられるようにした。
+    * NetBSD 1.3.2 対応。[うえまつけんじ <kenji.u at usa.net>]
+
+version 1.1.0 beta1 (1998-08-27, since 1998-08-03)
+    * GNU autoconf 導入。
+    * アーカイブのディレクトリ構成を変更。
+    * apache/mod_auth_external.c を別パッケージにした。
+    * 認証されたユーザで任意のコマンドを実行。 (-c オプション)
+    * 入力の形式を変更。 (「user=hoge」→「user hoge」)
+    * 実行結果を出力するようにした。 (成功「ok」、失敗「ng」)
+      (-q オプションで抑制可能)
+    * FreeBSD 2.2.5-RELEASE 対応。
+    * poppassd のマヌケなバグ修正。 (実機ではないが、動作検証も少々)
+    * パスワード変更 CGI を perl5 向けに書き直し。
+    * SunOS 4.1.4-JL 対応。[坂本一樹 <sakamoto at cec.co.jp>]
+
+
+version 1.0.x (1998-04-14, since 1997-05-23)
+======================================================================
+
+version 1.0.1 beta8 (1998-04-14, since 1998-01-28)
+    * passwd との通信においてタイムアウト処理を追加。
+    * chpasswd.c を Samba 1.9.18p4 (chgpasswd.c) を参考にして修正。
+    * Solaris 2.4 対応。[工藤康博 <ykudo at nagoya-denki.co.jp>]
+    * Solaris 2.6、Linux (Slackware 3.4) 対応。
+    * FreeBSD 2.1R 対応。 (動作検証なし)
+    * perl 版 poppassd 追加。 (動作検証なし)
+    * ヘルプ情報 (-h オプション) にバージョン情報を追加。
+    * トレース (-v オプション) の実装を libtrace 1.0.0 -> 1.1.0 に変更。
+
+version 1.0.1 beta7 (1997-12-19)
+    * mod_auth_external.c を Apache 付属のモジュールを参考にして修正。
+
+version 1.0.1 beta5 - beta6 (1997-12-12, since 1997-12-10)
+    * ユーザ名、パスワードを標準入力から取得するように変更。
+      (環境変数経由ではセキュリティ的に問題あり)
+    * Makefile 修正、Makefile.config 作成。
+    * 特別版 mod_auth_external.c 作成。 (ベースは version 2.0.0)
+    * あやしい英語の文書作成。
+
+version 1.0.1 beta1 - beta4 (1997-11-04, since 1997-12-01)
+    * Makefile 修正。
+    * Linux (Slackware 3.1) 対応。
+    * BSD/OS 2.x 対応。[藤井博章 <h-fujii at atom.co.jp>]
+    * 既定の passwd コマンドを /bin/passwd -> /usr/bin/passwd に変更。
+    * Expect() にトレース文追加。
+    * Apache 用のサンプル設定ファイルとパスワード変更 CGI 追加。
+
+version 1.0.0 (1997-05-23)
+    * poppassd.c 1.4 を使用。 (chpasswd.c)
+    * Solaris 2.x, SunOS 4.x 対応。

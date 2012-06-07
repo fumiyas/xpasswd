@@ -1,0 +1,49 @@
+poppassd 1.0.0 alpha2 (test release) with xpasswd
+Copyright (c) 1998-2002 SATOH Fumiyasu, All rights reserved.
+======================================================================
+
+いくつかの POP クライアントが実装しているメール・サーバの
+パスワード変更プロトコルを喋るデーモン(?)の実装です。
+xpasswd ver.1.1 以降と Perl ver.5 以降が必要です。
+
+利用方法の概要
+--------------
+
+    (1)	xpasswd の configure 実行時に --enable-poppassd または
+	--enable-extra をつける。
+
+    (2)	通常通りに構築、インストールを行う。(INSTALL を参照)
+
+    (3)	poppassd は、既定では /usr/local/sbin にインストールされる。
+
+    (4)	/etc/services に次のような poppassd のサービス名を記述する。
+
+	poppassd     106/tcp
+
+    (5)	/etc/inetd.conf に poppassd を実行する指定を記述する。
+
+	poppassd stream tcp nowait root /usr/local/sbin/poppassd poppassd
+
+    (6)	inetd を再起動する。
+
+	# kill -HUP `cat /var/run/inetd.pid`
+
+    (7)	poppassd に対応したクライアントからテストする。
+
+
+はしがき
+--------
+
+    作者は poppassd クライアントを持っていません。
+    つまり、実機によるテストはまったく行っていません。 :-X
+
+    APOP とやらにも対応できるならしたいが、APOP の仕様を知らないので
+    できません。要望が出たら仕様書でも読みましょうか…。 ;-)
+    それ以前に、APOP 対応の poppassd の仕様なぞ存在しないのかも。
+    (APOP の実装では不可能?)
+
+お願い
+------
+
+    もし実際に利用されて「動いた!」という方は、ぜひご連絡ください。
+    「ここを直したら動いたよ」といった情報も嬉しいです。

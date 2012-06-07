@@ -1,0 +1,33 @@
+======================================================================
+ありがとう
+======================================================================
+
+Roy Smith <roy at mchip00.med.nyu.edu>
+John Norstad <j-norstad at nwu.edu>
+    poppassd 作者です。ソースの流用と配布を許可して頂きました。
+
+Samba Team <samba-bugs at samba.org>
+    Samba 開発チームです。Samba の chgpasswd.c を参考にしました。
+
+GNU autoconf 2.12
+    config.guess, config.sub, install-sh を頂いています。
+
+西野幸宏 <nishino at cij.co.jp>
+    氏の perl プログラム第１弾 :-) である csv-parse.pl を改造して
+    passwd-cgi で使わせて頂いています。
+
+藤井博章 <h-fujii at atom.co.jp>
+    xpasswd 公開と改造の機会を得られ、BSD/OS 2.1 対応などを行うことが
+    できました。
+
+工藤康博 <ykudo at nagoya-denki.co.jp>
+    Solaris 2.4 に対応するためのパッチを頂きました。
+
+うえまつけんじ <kenji.u at usa.net>
+    NetBSD 1.3.2 に対応するためのパッチを頂きました。
+
+加藤徳英 <nori at kuwana.ne.jp>
+    FreeBSD 3.1-RELEASE に対応するためのパッチを頂きました。
+
+そのほか
+    コメントを頂いた多くの方々。ありがとうございます。
